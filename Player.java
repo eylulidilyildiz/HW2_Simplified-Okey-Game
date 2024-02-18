@@ -1,7 +1,7 @@
 public class Player {
-    String playerName;
-    Tile[] playerTiles;
-    int numberOfTiles;
+    private String playerName;
+    private Tile[] playerTiles;
+    private int numberOfTiles;
 
     public Player(String name) {
         setName(name);
@@ -17,7 +17,9 @@ public class Player {
      * check the assigment text for more details on winning condition
      */
     public boolean checkWinning() {
-        return false;
+        int playersLongestChain = this.findLongestChain();
+
+        return playersLongestChain >= 14;
     }
 
     /*
@@ -29,6 +31,27 @@ public class Player {
     public int findLongestChain() {
         int longestChain = 0;
 
+        Tile previousTile = this.playerTiles[0];
+        int lengthOfCurrentChain = 1;
+
+        for (int i = 1; i <this.playerTiles.length; i++) //Can be checked since the tiles are kept sorted in ascending order
+        {
+            Tile currentTile = this.playerTiles[i];
+            if(currentTile.canFormChainWith(previousTile)) 
+            {
+                lengthOfCurrentChain ++;
+            }
+            else{
+                if(lengthOfCurrentChain > longestChain)
+                {
+                    longestChain = lengthOfCurrentChain;
+                }
+                lengthOfCurrentChain = 1;
+            }
+
+            previousTile = currentTile;
+        }
+
         return longestChain;
     }
 
@@ -36,7 +59,16 @@ public class Player {
      * TODO: removes and returns the tile in given index position
      */
     public Tile getAndRemoveTile(int index) {
-        return null;
+        Tile tileBeingRemoved = this.playerTiles[index];
+
+        for (int i = index; i < this.playerTiles.length - 1 ; i ++)
+        {
+            this.playerTiles[i] = this.playerTiles[i + 1];
+        } 
+        this.playerTiles[this.playerTiles.length - 1] = null;
+        this.numberOfTiles --;
+
+        return tileBeingRemoved;
     }
 
     /*
@@ -46,6 +78,29 @@ public class Player {
      */
     public void addTile(Tile t) {
 
+        //finding t's position by looping over the existing tiles
+        int indexOfTileBeingChecked = 0;
+        boolean tilePositionIsFound = false;
+        while(!tilePositionIsFound && indexOfTileBeingChecked < 15)
+        {
+            Tile tileBeingChecked = this.playerTiles[indexOfTileBeingChecked];
+            int resultOfComparison = t.compareTo(tileBeingChecked);
+
+            if(resultOfComparison == 1)
+            {
+                indexOfTileBeingChecked ++;
+            }
+            else{ // (resultOfComparison == 0) || (resultOfCompaison == -1)
+                tilePositionIsFound = true;
+            }
+        }
+
+        //shifting the remaining tiles to the right and adding the Tile t to its position
+        for (int i = this.playerTiles.length - 1; i > indexOfTileBeingChecked; i--)
+        {
+            this.playerTiles[i] = this.playerTiles[i - 1];
+        }
+        this.playerTiles[indexOfTileBeingChecked] = t;
     }
 
     /*
