@@ -6,6 +6,11 @@ public class Player {
     public Player(String name) {
         setName(name);
         playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
+        for (int i = 0; i < playerTiles.length; i++)
+        {
+            Tile t = new Tile(0);
+            playerTiles[i] = t;
+        }
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
