@@ -100,6 +100,7 @@ public class Player {
             }
         }
 
+        indexOfTileBeingChecked --;
         //shifting the remaining tiles to the right and adding the Tile t to its position
         for (int i = this.playerTiles.length - 1; i > indexOfTileBeingChecked; i--)
         {
