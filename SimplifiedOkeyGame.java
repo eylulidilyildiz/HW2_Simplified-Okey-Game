@@ -67,7 +67,15 @@ public class SimplifiedOkeyGame {
      * returns the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        return null;
+        if (tileCount > 0) 
+        {
+            Tile tileOnTop = tiles[tileCount--];
+            return tileOnTop.toString();
+        } 
+        else 
+        {
+            return null;
+        }
     }
 
     /*
@@ -99,7 +107,30 @@ public class SimplifiedOkeyGame {
      * if multiple players have the same length may return multiple players
      */
     public Player[] getPlayerWithHighestLongestChain() {
-        Player[] winners = new Player[1];
+        int longestChain = 0;
+        Player[] winners = new Player[4];
+        int numWinners = 0;
+
+        for (Player player : players) 
+        {
+            int chainLength = player.findLongestChain();
+            
+            if (chainLength > longestChain) 
+            {
+                longestChain = chainLength;
+                winners[0] = player;
+                numWinners = 1;
+            } 
+            else if (chainLength == longestChain) 
+            {
+                winners[numWinners++] = player;
+            }
+        }
+
+        if (numWinners < 4) 
+        {
+            winners = Arrays.copyOf(winners, numWinners);
+        }
 
         return winners;
     }
