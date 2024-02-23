@@ -32,6 +32,20 @@ public class SimplifiedOkeyGame {
      * other players get 14 tiles, this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
+        int intialTileCount = 15;
+        for (int i = 0; i < this.players.length; i++)
+        {
+            if (i != 0)
+            {
+                intialTileCount = 14;
+            }
+
+            for (int j = 0; j < intialTileCount; j++)
+            {
+                this.players [i].addTile (this.tiles[j]);
+
+            }
+        }
 
     }
 
@@ -60,6 +74,16 @@ public class SimplifiedOkeyGame {
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
+        for (int i = 0; i < this.tiles.length; i++)
+        {
+            // Forming a random indexes from 0 to 104
+            int randomIndex = (int) (Math.random() * 104);
+
+            // Swapping the i th tile with the tile on randomly chosen index
+            Tile temp = new Tile (tiles [i].getValue());
+            tiles [i] = tiles [randomIndex];
+            tiles [randomIndex] = temp;
+        }
 
     }
 
