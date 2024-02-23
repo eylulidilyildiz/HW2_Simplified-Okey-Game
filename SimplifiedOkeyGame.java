@@ -111,6 +111,7 @@ public class SimplifiedOkeyGame {
         return tileCount != 0;
     }
 
+
     /*
      * TODO: pick a tile for the current computer player using one of the following:
      * - picking from the tiles array using getTopTile()
@@ -119,7 +120,22 @@ public class SimplifiedOkeyGame {
      * by checking if it increases the longest chain length, if not get the top tile
      */
     public void pickTileForComputer() {
+        Tile discardedTile = lastDiscardedTile;
+        int firstLongestChain = players[currentPlayerIndex].findLongestChain();
+        players[currentPlayerIndex].addTile(discardedTile);
+        int secondLongestChain = players[currentPlayerIndex].findLongestChain();
+        boolean discardTileIsUseful = secondLongestChain > firstLongestChain;
 
+        if (discardTileIsUseful) 
+        {
+            String discardedTileValue = getLastDiscardedTile();
+            System.out.println("Player picked up the discarded tile: " + discardedTileValue);
+        } 
+        else 
+        {
+            String topTileValue = getTopTile();
+            System.out.println("Player picked up the top tile: " + topTileValue);
+        }
     }
 
     /*
@@ -127,7 +143,10 @@ public class SimplifiedOkeyGame {
      * you may choose based on how useful each tile is
      */
     public void discardTileForComputer() {
-
+        Tile[] playerTiles = players[currentPlayerIndex].getTiles();
+        Tile tileToDiscard = playerTiles[0];
+        players[currentPlayerIndex].getAndRemoveTile(0);
+        System.out.println("Computer discarded tile: " + tileToDiscard.toString());
     }
 
     /*
