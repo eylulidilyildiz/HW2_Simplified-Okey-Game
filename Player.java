@@ -60,6 +60,10 @@ public class Player {
         return longestChain;
     }
 
+
+
+    
+
     /*
      * TODO: removes and returns the tile in given index position
      */
@@ -141,9 +145,9 @@ public class Player {
     public void sortInitialTiles ()
     {
         //Putting tiles in ascending order first
-        for (int i = 0; i < this.playerTiles.length - 1; i++)
+        for (int i = 0; i < this.numberOfTiles - 1; i++)
         {
-            for (int j = i + 1; j < this.playerTiles.length; j++)
+            for (int j = i + 1; j < this.numberOfTiles; j++)
             {
                 if(this.playerTiles[i].getValue() > this.playerTiles[j].getValue())
                 {

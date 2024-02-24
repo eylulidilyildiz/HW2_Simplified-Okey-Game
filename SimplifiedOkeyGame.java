@@ -34,20 +34,32 @@ public class SimplifiedOkeyGame {
      * other players get 14 tiles, this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
-        int intialTileCount = 15;
+        int initialTileCount = 15;
+        int addTilesStartingFromIndex = 0;
         for (int i = 0; i < this.players.length; i++)
         {
             if (i != 0)
             {
-                intialTileCount = 14;
+                initialTileCount = 14;
             }
 
-            for (int j = 0; j < intialTileCount; j++)
+            for (int j = initialTileCount + addTilesStartingFromIndex - 1; j >= addTilesStartingFromIndex; j--)
             {
-                this.players [i].setTile (this.tiles[j]);
-
+                this.players [i].setTile (this.tiles[j]);   
+                tileCount --;   
             }
             this.players [i].sortInitialTiles ();
+            addTilesStartingFromIndex += initialTileCount;
+
+            Tile[] temp = new Tile[tileCount];
+            for (int n = 0; n < tileCount; n++)
+            {
+                temp[n] = tiles[initialTileCount + n];
+            }
+            this.tiles = new Tile[tileCount];
+            this.tiles = temp; //so that the tiles given to the player is removed from the tiles remaining on the table
+            System.out.println("");
+    
         }
 
 
@@ -192,6 +204,7 @@ public class SimplifiedOkeyGame {
      */
     public void discardTile(int tileIndex) {
         lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
+        System.out.println(players[currentPlayerIndex].getName() + " discarded: " + lastDiscardedTile.getValue());
     }
 
     public void displayDiscardInformation() {
