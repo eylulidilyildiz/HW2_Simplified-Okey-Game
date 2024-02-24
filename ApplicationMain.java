@@ -131,6 +131,13 @@ public class ApplicationMain {
                         // TODO: the game ended with no more tiles in the stack
                         // determine the winner based on longest chain lengths of the players
                         // use getPlayerWithHighestLongestChain method of game for this task
+
+                        System.out.print ("The winner(s): ");
+                        Player [] winners = game.getPlayerWithHighestLongestChain();
+                        for (int i = 0; i < winners.length; i++)
+                        {
+                            System.out.println (winners [i].getName() + " ");
+                        }
                     }
                 }
             }
