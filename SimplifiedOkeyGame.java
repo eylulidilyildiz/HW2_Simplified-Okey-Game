@@ -73,7 +73,7 @@ public class SimplifiedOkeyGame {
     public String getTopTile() {
         if (tileCount > 0) 
         {
-            Tile tileOnTop = tiles[tileCount--];
+            Tile tileOnTop = tiles[--tileCount];
             return tileOnTop.toString();
         } 
         else 
