@@ -34,17 +34,19 @@ public class SimplifiedOkeyGame {
      * other players get 14 tiles, this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
+
         int intialTileCount = 15;
+        int tileIndex = 0;
         for (int i = 0; i < this.players.length; i++)
         {
             if (i != 0)
             {
-                intialTileCount = 14;
+                intialTileCount += 14;
             }
 
-            for (int j = 0; j < intialTileCount; j++)
+            for (int j = tileIndex; tileIndex < intialTileCount; tileIndex++)
             {
-                this.players [i].setTile (this.tiles[j]);
+                this.players [i].setTile (this.tiles [tileIndex]);
 
             }
             this.players [i].sortInitialTiles ();

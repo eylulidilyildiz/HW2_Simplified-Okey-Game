@@ -145,7 +145,7 @@ public class Player {
         {
             for (int j = i + 1; j < this.playerTiles.length; j++)
             {
-                if(this.playerTiles[i].getValue() > this.playerTiles[j].getValue())
+                if (this.playerTiles[i].getValue() > this.playerTiles[j].getValue() && this.playerTiles [j].getValue() != 0 && this.playerTiles [i].getValue() != 0)
                 {
                     Tile temp = this.playerTiles[i];
                     this.playerTiles[i] = this.playerTiles[j];
