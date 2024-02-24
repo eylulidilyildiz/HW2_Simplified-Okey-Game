@@ -6,11 +6,11 @@ public class Player {
     public Player(String name) {
         setName(name);
         playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
-        //for (int i = 0; i < playerTiles.length; i++)
-        //{
-          //  Tile t = new Tile(0);
-            //playerTiles[i] = t;
-        //}
+        for (int i = 0; i < playerTiles.length; i++)
+        {
+            Tile t = new Tile(0);
+            playerTiles[i] = t;
+        }
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
@@ -110,19 +110,46 @@ public class Player {
         this.playerTiles[indexOfTileBeingChecked] = t;
     }
 
+    /**
+     * This method helps to add the initial tiles while they are
+     * first being distributed to the players.
+     * @param t
+     */
+    public void setTile (Tile t)
+    {
+        int indexOfTile = 0;
+        boolean isTileAdded = false;
 
-    public void addTiles(Tile[] tiles)
+        while (!isTileAdded) 
+        {
+            if (this.playerTiles [indexOfTile].getValue() == 0)
+            {
+                this.playerTiles [indexOfTile] = t;
+                isTileAdded = true;
+            }
+            else
+            {
+                indexOfTile++;
+
+            }
+        }
+
+        this.numberOfTiles++;
+    }
+
+
+    public void sortInitialTiles ()
     {
         //Putting tiles in ascending order first
-        for (int i = 0; i < tiles.length - 1; i++)
+        for (int i = 0; i < this.playerTiles.length - 1; i++)
         {
-            for (int j = i + 1; j < tiles.length; i++)
+            for (int j = i + 1; j < this.playerTiles.length; j++)
             {
-                if(tiles[i].getValue() > tiles[j].getValue())
+                if(this.playerTiles[i].getValue() > this.playerTiles[j].getValue())
                 {
-                    Tile temp = tiles[i];
-                    tiles[i] = tiles[j];
-                    tiles [j] = temp;
+                    Tile temp = this.playerTiles[i];
+                    this.playerTiles[i] = this.playerTiles[j];
+                    this.playerTiles [j] = temp;
                 }
             } 
         } 

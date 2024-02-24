@@ -44,10 +44,12 @@ public class SimplifiedOkeyGame {
 
             for (int j = 0; j < intialTileCount; j++)
             {
-                this.players [i].addTile (this.tiles[j]);
+                this.players [i].setTile (this.tiles[j]);
 
             }
+            this.players [i].sortInitialTiles ();
         }
+
 
     }
 
