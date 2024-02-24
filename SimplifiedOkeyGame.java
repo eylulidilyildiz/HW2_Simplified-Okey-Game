@@ -74,6 +74,7 @@ public class SimplifiedOkeyGame {
         if (tileCount > 0) 
         {
             Tile tileOnTop = tiles[--tileCount];
+            players[currentPlayerIndex].addTile(tileOnTop);
             return tileOnTop.toString();
         } 
         else 
