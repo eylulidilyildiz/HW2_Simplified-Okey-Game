@@ -55,7 +55,7 @@ public class Player {
 
         int lengthOfCurrentChain = 1;
 
-        for (int i = 1; i <this.playerTiles.length; i++) //Can be checked since the tiles are kept sorted in ascending order
+        for (int i = 1; i < this.numberOfTiles; i++) //Can be checked since the tiles are kept sorted in ascending order
         {
             Tile currentTile = this.playerTiles[i];
 
