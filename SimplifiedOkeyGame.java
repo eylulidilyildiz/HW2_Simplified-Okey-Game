@@ -36,22 +36,22 @@ public class SimplifiedOkeyGame {
      */
     public void distributeTilesToPlayers() {
         int initialTileCount = 15;
-        int addTilesStartingFromIndex = 0;
+        int tileIndex = 0;
         int totalTilesDistributed = 0;
         for (int i = 0; i < this.players.length; i++)
         {
             if (i != 0)
             {
-                initialTileCount = 14;
+                initialTileCount += 14;
             }
 
-            for (int j = 0; j < initialTileCount; j++)
+            for (int j = tileIndex; tileIndex < initialTileCount; tileIndex++)
             {
-                this.players [i].setTile (this.tiles[j]);
+                this.players [i].setTile (this.tiles [tileIndex]);
 
             }
             this.players [i].sortInitialTiles ();
-            addTilesStartingFromIndex += initialTileCount;
+            
         }
 
         Tile[] temp = new Tile[tileCount];
