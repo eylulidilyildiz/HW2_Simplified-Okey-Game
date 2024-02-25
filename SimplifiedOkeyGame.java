@@ -45,10 +45,12 @@ public class SimplifiedOkeyGame {
                 initialTileCount += 14;
             }
 
-            for (int j = tileIndex; tileIndex < initialTileCount; tileIndex++)
+            for (int j = tileIndex; tileIndex < initialTileCount; j++)
             {
-                this.players [i].setTile (this.tiles [tileIndex]);
-
+                this.players [i].setTile (this.tiles [j]);
+                tileIndex++;
+                totalTilesDistributed++;
+                this.tileCount--;
             }
             this.players [i].sortInitialTiles ();
             
@@ -59,9 +61,9 @@ public class SimplifiedOkeyGame {
             {
                 temp[n] = tiles[totalTilesDistributed + n];
             }
-            this.tiles = new Tile[tileCount];
-            this.tiles = temp; //so that the tiles given to the player is removed from the tiles remaining on the table
 
+            this.tiles = Arrays.copyOf(temp, tileCount); 
+            //so that the tiles given to the player is removed from the tiles remaining on the table
 
     }
 
@@ -124,7 +126,7 @@ public class SimplifiedOkeyGame {
      * if multiple players have the same length may return multiple players
      */
     public Player[] getPlayerWithHighestLongestChain() {
-        int longestChain = 0;
+        int longestChain = players[0].findLengthOfLongestChain();
         Player[] winners = new Player[4];
         int numWinners = 0;
 
@@ -135,16 +137,18 @@ public class SimplifiedOkeyGame {
             if (chainLength > longestChain) 
             {
                 longestChain = chainLength;
+                winners = new Player[4];
                 winners[0] = player;
                 numWinners = 1;
             } 
             else if (chainLength == longestChain) 
             {
-                winners[numWinners++] = player;
+                winners[numWinners] = player;
+                numWinners++;
             }
         }
 
-        if (numWinners < 4) 
+        if (numWinners <= 4) 
         {
             winners = Arrays.copyOf(winners, numWinners);
         }

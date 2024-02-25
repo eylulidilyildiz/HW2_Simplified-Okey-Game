@@ -64,7 +64,7 @@ public class Player {
                 currentChain.add(currentTile);
                 lengthOfCurrentChain ++;
             }
-            else
+            else if(currentTile.compareTo(previousTile) != 0)
             {
                 if(lengthOfCurrentChain > lengthOfLongestChain)
                 {

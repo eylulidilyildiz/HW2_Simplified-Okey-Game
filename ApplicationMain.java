@@ -91,7 +91,7 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    if(!game.didGameFinish()) {
+                    if(game.didGameFinish()) {
                         // if we finish the hand we win
                         System.out.println("Congratulations, you win!");    
                     }
@@ -99,7 +99,7 @@ public class ApplicationMain {
                         // TODO: the game ended with no more tiles in the stack
                         // determine the winner based on longest chain lengths of the players
                         // use getPlayerWithHighestLongestChain method of game for this task
-                        System.out.print ("The winner(s): ");
+                        System.out.print ("There are no tiles left in the stack.\nThe winner(s): ");
                         Player [] winners = game.getPlayerWithHighestLongestChain();
                         for (int i = 0; i < winners.length; i++)
                         {
@@ -125,7 +125,7 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    if(!game.didGameFinish()) {
+                    if(game.didGameFinish()) {
                         // current computer character wins
                         System.out.println(game.getCurrentPlayerName() + " wins.");
                     }
@@ -134,7 +134,7 @@ public class ApplicationMain {
                         // determine the winner based on longest chain lengths of the players
                         // use getPlayerWithHighestLongestChain method of game for this task
 
-                        System.out.print ("The winner(s): ");
+                        System.out.print ("There are no tiles left in the stack.\nThe winner(s): ");
                         Player [] winners = game.getPlayerWithHighestLongestChain();
                         for (int i = 0; i < winners.length; i++)
                         {
