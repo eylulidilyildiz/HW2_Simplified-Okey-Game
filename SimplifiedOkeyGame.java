@@ -206,7 +206,6 @@ public class SimplifiedOkeyGame {
         Tile[] playerTiles = players[currentPlayerIndex].getTiles();
         Tile tileToDiscard = playerTiles[0];
         discardTile(0);
-        System.out.println("Computer discarded tile: " + tileToDiscard.toString());
     }
 
     /*
