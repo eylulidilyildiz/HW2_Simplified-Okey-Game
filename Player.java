@@ -58,11 +58,10 @@ public class Player {
         for (int i = 1; i <this.playerTiles.length; i++) //Can be checked since the tiles are kept sorted in ascending order
         {
             Tile currentTile = this.playerTiles[i];
-            currentChain.add(currentTile);
 
             if(currentTile.canFormChainWith(previousTile)) 
             {
-                longestChain.add(currentTile);
+                currentChain.add(currentTile);
                 lengthOfCurrentChain ++;
             }
             else
@@ -131,13 +130,13 @@ public class Player {
         }
         
 
-        indexOfTileBeingChecked --;
         //shifting the remaining tiles to the right and adding the Tile t to its position
         for (int i = this.playerTiles.length - 1; i > indexOfTileBeingChecked; i--)
         {
             this.playerTiles[i] = this.playerTiles[i - 1];
         }
         this.playerTiles[indexOfTileBeingChecked] = t;
+        this.numberOfTiles ++;
     }
 
     /**
