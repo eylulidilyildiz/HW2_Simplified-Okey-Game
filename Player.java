@@ -79,8 +79,8 @@ public class Player {
             previousTile = currentTile;
         }
 
-        Tile[] longestChainArray = new Tile[lengthOfCurrentChain];
-        for (int i = 0; i < lengthOfCurrentChain; i++)
+        Tile[] longestChainArray = new Tile[lengthOfLongestChain];
+        for (int i = 0; i < lengthOfLongestChain; i++)
         {
             longestChainArray[i] = longestChain.get(i);
         }
