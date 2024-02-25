@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SimplifiedOkeyGame {
@@ -34,23 +35,30 @@ public class SimplifiedOkeyGame {
      * other players get 14 tiles, this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
-
         int intialTileCount = 15;
-        int tileIndex = 0;
         for (int i = 0; i < this.players.length; i++)
         {
             if (i != 0)
             {
-                intialTileCount += 14;
+                intialTileCount = 14;
             }
 
-            for (int j = tileIndex; tileIndex < intialTileCount; tileIndex++)
+            for (int j = 0; j < intialTileCount; j++)
             {
-                this.players [i].setTile (this.tiles [tileIndex]);
+                this.players [i].setTile (this.tiles[j]);
 
             }
             this.players [i].sortInitialTiles ();
+            addTilesStartingFromIndex += initialTileCount;
         }
+
+        Tile[] temp = new Tile[tileCount];
+            for (int n = 0; n < tileCount; n++)
+            {
+                temp[n] = tiles[totalTilesDistributed + n];
+            }
+            this.tiles = new Tile[tileCount];
+            this.tiles = temp; //so that the tiles given to the player is removed from the tiles remaining on the table
 
 
     }
@@ -120,7 +128,7 @@ public class SimplifiedOkeyGame {
 
         for (Player player : players) 
         {
-            int chainLength = player.findLongestChain();
+            int chainLength = player.findLengthOfLongestChain();
             
             if (chainLength > longestChain) 
             {
@@ -159,10 +167,19 @@ public class SimplifiedOkeyGame {
      */
     public void pickTileForComputer() {
         Tile discardedTile = lastDiscardedTile;
-        int firstLongestChain = players[currentPlayerIndex].findLongestChain();
-        players[currentPlayerIndex].addTile(discardedTile);
-        int secondLongestChain = players[currentPlayerIndex].findLongestChain();
-        boolean discardTileIsUseful = secondLongestChain > firstLongestChain;
+        Tile[] longestChain = this.players[currentPlayerIndex].findLongestChain();
+        boolean discardTileIsUseful;
+        if (discardedTile.getValue() == longestChain[0].getValue() - 1)
+        {
+            discardTileIsUseful = true;
+        }
+        else if(discardedTile.getValue() == longestChain[longestChain.length - 1].getValue() + 1)
+        {
+            discardTileIsUseful = true;
+        }
+        else{
+            discardTileIsUseful = false;
+        }
 
         if (discardTileIsUseful) 
         {
@@ -194,6 +211,7 @@ public class SimplifiedOkeyGame {
      */
     public void discardTile(int tileIndex) {
         lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
+        System.out.println(players[currentPlayerIndex].getName() + " discarded: " + lastDiscardedTile.getValue());
     }
 
     public void displayDiscardInformation() {

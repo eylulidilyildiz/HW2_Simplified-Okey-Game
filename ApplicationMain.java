@@ -66,6 +66,7 @@ public class ApplicationMain {
                     game.displayCurrentPlayersTiles();
                 }
                 else{
+
                     // after first turn it is no longer the first turn
                     firstTurn = false;
                 }
@@ -76,6 +77,7 @@ public class ApplicationMain {
                     // if game continues we need to discard a tile using the given index by the player
                     System.out.println("Which tile you will discard?");
                     System.out.print("Discard the tile in index: ");
+
                     playerChoice = sc.nextInt();
 
                     // TODO: make sure the given index is correct, should be 0 <= index <= 14
@@ -145,4 +147,6 @@ public class ApplicationMain {
 
         sc.close();
     }
+
+    //comment
 }
