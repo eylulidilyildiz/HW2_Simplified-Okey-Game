@@ -99,7 +99,7 @@ public class Player {
         {
             this.playerTiles[i] = this.playerTiles[i + 1];
         } 
-        this.playerTiles[this.playerTiles.length - 1] = null;
+        this.playerTiles[this.playerTiles.length - 1] = new Tile(0);
         this.numberOfTiles --;
 
         return tileBeingRemoved;
@@ -115,7 +115,7 @@ public class Player {
         //finding t's position by looping over the existing tiles
         int indexOfTileBeingChecked = 0;
         boolean tilePositionIsFound = false;
-        while(!tilePositionIsFound && indexOfTileBeingChecked < 15)
+        while(!tilePositionIsFound && indexOfTileBeingChecked < 14)
         {
             Tile tileBeingChecked = this.playerTiles[indexOfTileBeingChecked];
             int resultOfComparison = t.compareTo(tileBeingChecked);
@@ -130,13 +130,21 @@ public class Player {
         }
         
 
+        if(indexOfTileBeingChecked >= 14)
+        {
+            this.playerTiles[this.playerTiles.length - 1] = t;
+        }
+        else{
         //shifting the remaining tiles to the right and adding the Tile t to its position
         for (int i = this.playerTiles.length - 1; i > indexOfTileBeingChecked; i--)
         {
             this.playerTiles[i] = this.playerTiles[i - 1];
         }
         this.playerTiles[indexOfTileBeingChecked] = t;
+
+        }
         this.numberOfTiles ++;
+
     }
 
     /**
