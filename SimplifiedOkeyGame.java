@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SimplifiedOkeyGame {
@@ -52,8 +53,6 @@ public class SimplifiedOkeyGame {
             }
             this.players [i].sortInitialTiles ();
             addTilesStartingFromIndex += initialTileCount;
-
-            System.out.println("");
         }
 
         Tile[] temp = new Tile[tileCount];
@@ -132,7 +131,7 @@ public class SimplifiedOkeyGame {
 
         for (Player player : players) 
         {
-            int chainLength = player.findLongestChain();
+            int chainLength = player.findLengthOfLongestChain();
             
             if (chainLength > longestChain) 
             {
@@ -171,10 +170,19 @@ public class SimplifiedOkeyGame {
      */
     public void pickTileForComputer() {
         Tile discardedTile = lastDiscardedTile;
-        int firstLongestChain = players[currentPlayerIndex].findLongestChain();
-        players[currentPlayerIndex].addTile(discardedTile);
-        int secondLongestChain = players[currentPlayerIndex].findLongestChain();
-        boolean discardTileIsUseful = secondLongestChain > firstLongestChain;
+        Tile[] longestChain = this.players[currentPlayerIndex].findLongestChain();
+        boolean discardTileIsUseful;
+        if (discardedTile.getValue() == longestChain[0].getValue() - 1)
+        {
+            discardTileIsUseful = true;
+        }
+        else if(discardedTile.getValue() == longestChain[longestChain.length - 1].getValue() + 1)
+        {
+            discardTileIsUseful = true;
+        }
+        else{
+            discardTileIsUseful = false;
+        }
 
         if (discardTileIsUseful) 
         {

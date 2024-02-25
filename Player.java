@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player {
     private String playerName;
     private Tile[] playerTiles;
@@ -22,47 +24,71 @@ public class Player {
      * check the assigment text for more details on winning condition
      */
     public boolean checkWinning() {
-        int playersLongestChain = this.findLongestChain();
+        int playersLongestChain = this.findLengthOfLongestChain();
 
         return playersLongestChain >= 14;
     }
 
     /*
+     * Used for finding the length of the longest chain in this player hand
+     */
+    public int findLengthOfLongestChain() {
+        Tile[] longestChain = this.findLongestChain();
+        return longestChain.length;
+    }
+
+
+        /*
      * TODO: used for finding the longest chain in this player hand
      * this method should iterate over playerTiles to find the longest chain
      * of consecutive numbers, used for checking the winning condition
      * and also for determining the winner if tile stack has no tiles
      */
-    public int findLongestChain() {
-        int longestChain = 0;
+    public Tile[] findLongestChain() {
+        int lengthOfLongestChain = 0;
+        ArrayList<Tile> longestChain = new ArrayList<Tile>();
+        ArrayList<Tile> currentChain = new ArrayList<Tile>();
 
         Tile previousTile = this.playerTiles[0];
+        longestChain.add(this.playerTiles[0]);
+        currentChain.add(this.playerTiles[0]);
+
         int lengthOfCurrentChain = 1;
 
         for (int i = 1; i <this.playerTiles.length; i++) //Can be checked since the tiles are kept sorted in ascending order
         {
             Tile currentTile = this.playerTiles[i];
+            currentChain.add(currentTile);
+
             if(currentTile.canFormChainWith(previousTile)) 
             {
+                longestChain.add(currentTile);
                 lengthOfCurrentChain ++;
             }
-            else{
-                if(lengthOfCurrentChain > longestChain)
+            else
+            {
+                if(lengthOfCurrentChain > lengthOfLongestChain)
                 {
-                    longestChain = lengthOfCurrentChain;
+                    lengthOfLongestChain = lengthOfCurrentChain;
+                    longestChain = new ArrayList<Tile>(currentChain);
                 }
                 lengthOfCurrentChain = 1;
+                currentChain.clear();
+                currentChain.add(currentTile);
             }
 
             previousTile = currentTile;
         }
 
-        return longestChain;
+        Tile[] longestChainArray = new Tile[lengthOfCurrentChain];
+        for (int i = 0; i < lengthOfCurrentChain; i++)
+        {
+            longestChainArray[i] = longestChain.get(i);
+        }
+        return longestChainArray;
     }
 
 
-
-    
 
     /*
      * TODO: removes and returns the tile in given index position
